@@ -20,19 +20,20 @@
     "module": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
   },
   "include": [
     "src",
@@ -43,6 +44,7 @@
     "next.config.mjs"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
