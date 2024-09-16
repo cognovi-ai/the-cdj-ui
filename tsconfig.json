@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -15,9 +15,8 @@
     "noEmitOnError": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
     "esModuleInterop": true,
-    "module": "NodeNext",
+    "module": "ESNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -32,17 +31,15 @@
         "./src/*"
       ]
     },
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "Node"
   },
   "include": [
-    "src",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "next.config.mjs"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
