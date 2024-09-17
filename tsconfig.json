@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
+    ],
+    "types": [
+      "node", 
+      "jest", 
+      "@testing-library/jest-dom"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,9 +20,8 @@
     "noEmitOnError": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
     "esModuleInterop": true,
-    "module": "NodeNext",
+    "module": "ESNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -32,17 +36,17 @@
         "./src/*"
       ]
     },
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "Node"
   },
   "include": [
-    "src",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
-    "next.config.mjs"
+    "test/**/*.ts",
+    "test/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
