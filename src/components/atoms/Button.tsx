@@ -9,6 +9,7 @@ const Button: React.FC<ButtonProps> = ({
   color = 'primary',
   size = 'medium',
   onClick,
+  sx = {},
   ariaLabel = '', 
   tabIndex = 0,
   ...props
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
       color={color}
       size={size}
       onClick={onClick}
+      sx = {sx}
       aria-label={ariaLabel || label}
       tabIndex={tabIndex}
       {...props}

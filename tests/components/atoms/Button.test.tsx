@@ -94,4 +94,18 @@ describe('Button component', () => {
     render(<Button {...defaultProps} tabIndex={tabIndex} />);
     expect(screen.getByText('Test Button')).toHaveAttribute('tabindex', '1');
   });
+
+  it('should apply sx prop to the button', () => {
+    const sx = { margin: 2 };
+    render(<Button {...defaultProps} sx={sx} />);
+    
+    expect(MuiButton).toHaveBeenCalledWith(
+      expect.objectContaining({
+        sx: expect.objectContaining({
+          margin: 2,
+        }),
+      }),
+      expect.anything()
+    );
+  });
 });
