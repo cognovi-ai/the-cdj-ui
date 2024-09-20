@@ -9,10 +9,20 @@ const Button: React.FC<ButtonProps> = ({
   color = 'primary',
   size = 'medium',
   onClick,
+  ariaLabel = '', 
+  tabIndex = 0,
   ...props
 }: ButtonProps) => {
   return (
-    <MuiButton variant={variant} color={color} size={size} onClick={onClick} {...props}>
+    <MuiButton
+      variant={variant}
+      color={color}
+      size={size}
+      onClick={onClick}
+      aria-label={ariaLabel || label}
+      tabIndex={tabIndex}
+      {...props}
+    >
       {label}
     </MuiButton>
   );

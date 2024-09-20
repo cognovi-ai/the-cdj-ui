@@ -82,4 +82,16 @@ describe('Button component', () => {
       expect.anything()
     );
   });
+
+  it('should pass the correct aria-label to the button', () => {
+    const ariaLabel = 'Click me';
+    render(<Button {...defaultProps} ariaLabel={ariaLabel} />);
+    expect(screen.getByLabelText(ariaLabel)).toBeInTheDocument();
+  });
+
+  it('should set the correct tabIndex on the button', () => {
+    const tabIndex = 1;
+    render(<Button {...defaultProps} tabIndex={tabIndex} />);
+    expect(screen.getByText('Test Button')).toHaveAttribute('tabindex', '1');
+  });
 });
