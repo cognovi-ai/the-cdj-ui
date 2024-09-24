@@ -1,3 +1,59 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "react-refresh",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "prettier"
+  ],
+  "ignorePatterns": ["dist", ".eslintrc.cjs"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "18.2"
+    }
+  },
+  "rules": {
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ],
+    "capitalized-comments": 1,
+    "dot-notation": 1,
+    "prefer-destructuring": ["error", { "object": true, "array": false }],
+    "quotes": ["error", "single"],
+    "sort-imports": 1,
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/prop-types": "off",
+    "react/jsx-sort-props": 1,
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "react/destructuring-assignment": 1,
+    "react/no-deprecated": 2,
+    "react-hooks/exhaustive-deps": "off",
+    "prettier/prettier": "error"
+  }
 }
