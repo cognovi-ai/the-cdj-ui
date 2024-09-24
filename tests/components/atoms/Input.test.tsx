@@ -1,112 +1,71 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Input from '../../../src/components/atoms/Input';
-import { TextField as MuiInput } from '@mui/material';
 import '@testing-library/jest-dom';
-
-jest.mock('@mui/material', () => ({
-  TextField: jest.fn().mockImplementation(({ label, helperText, error, ...props }) => (
-    <>
-      <input aria-label={label} {...props} />
-      {helperText && <span aria-label="helperText">{helperText}</span>}
-      {error && <span aria-label="error">Error</span>}
-    </>
-  )),
-}));
 
 describe('Input component', () => {
   const defaultProps = {
     label: 'Test Input',
-    variant: 'outlined' as const,
     value: '',
     onChange: jest.fn(),
+    placeholder: 'Enter value',
   };
-
-  beforeEach(() => {
-    (MuiInput as jest.Mock).mockClear();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   it('should render the input with the correct label', () => {
     render(<Input {...defaultProps} />);
     expect(screen.getByLabelText('Test Input')).toBeInTheDocument();
   });
 
-  it('should pass the correct variant prop to MuiInput', () => {
-    render(<Input {...defaultProps} variant="filled" />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({ variant: 'filled' }),
-      expect.anything()
-    );
+  it('should display the correct value', () => {
+    render(<Input {...defaultProps} value="Test Value" />);
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.value).toBe('Test Value');
   });
 
   it('should call onChange when the input value changes', () => {
     render(<Input {...defaultProps} />);
-    const input = screen.getByLabelText('Test Input');
-    fireEvent.change(input, { target: { value: 'new value' } });
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'New Value' } });
     expect(defaultProps.onChange).toHaveBeenCalledTimes(1);
+    expect(defaultProps.onChange).toHaveBeenCalledWith(expect.any(Object));
   });
 
-  it('should pass the correct type prop to MuiInput', () => {
-    render(<Input {...defaultProps} type="password" />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({ type: 'password' }),
-      expect.anything()
-    );
+  it('should render the placeholder text correctly', () => {
+    render(<Input {...defaultProps} placeholder="Enter your username" />);
+    const input = screen.getByPlaceholderText('Enter your username');
+    expect(input).toBeInTheDocument();
   });
 
-  it('should use default values when no props are provided', () => {
-    render(<Input label="Default Input" />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({
-        variant: 'outlined',
-        type: 'text',
-      }),
-      expect.anything()
-    );
-    expect(screen.getByLabelText('Default Input')).toBeInTheDocument();
+  it('should apply the correct aria-label for accessibility', () => {
+    render(<Input {...defaultProps} ariaLabel="Test Aria Label" />);
+    const input = screen.getByLabelText('Test Aria Label');
+    expect(input).toBeInTheDocument();
   });
 
-  it('should pass additional props to MuiInput', () => {
+  it('should apply the correct tabIndex', () => {
+    render(<Input {...defaultProps} tabIndex={3} />);
+    const input = screen.getByLabelText('Test Input');
+    expect(input).toHaveAttribute('tabIndex', '3');
+  });
+
+  it('should render the input as disabled when disabled prop is true', () => {
     render(<Input {...defaultProps} disabled />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({ disabled: true }),
-      expect.anything()
-    );
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.disabled).toBe(true);
   });
 
-  it('should render the placeholder text', () => {
-    render(<Input {...defaultProps} placeholder="Enter your name" />);
-    expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
+  it('should render the input with an error state when error prop is true', () => {
+    render(<Input {...defaultProps} error helperText="This field is required" />);
+    const input = screen.getByLabelText('Test Input');
+    expect(input).toBeInTheDocument();
+    const errorMessage = screen.getByText('This field is required');
+    expect(errorMessage).toBeInTheDocument();
   });
 
-  it('should render helper text when provided', () => {
-    render(<Input {...defaultProps} helperText="This is helper text" />);
-    expect(screen.getByLabelText('helperText')).toHaveTextContent('This is helper text');
-  });
-
-  it('should show an error when the error prop is true', () => {
-    render(<Input {...defaultProps} error />);
-    expect(screen.getByLabelText('error')).toHaveTextContent('Error');
-  });
-
-  it('should handle multiline input', () => {
-    render(<Input {...defaultProps} multiline rows={4} />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({ multiline: true, rows: 4 }),
-      expect.anything()
-    );
-  });
-
-  it('should pass the sx prop for custom styling', () => {
-    const sx = { backgroundColor: 'lightgray' };
-    render(<Input {...defaultProps} sx={sx} />);
-    expect(MuiInput).toHaveBeenCalledWith(
-      expect.objectContaining({ sx }),
-      expect.anything()
-    );
+  it('should render as multiline with the correct number of rows when multiline prop is true', () => {
+    render(<Input {...defaultProps} multiline rows={3} />);
+    const input = screen.getByLabelText('Test Input') as HTMLTextAreaElement;
+    expect(input.tagName.toLowerCase()).toBe('textarea');
+    expect(input.rows).toBe(3);
   });
 });

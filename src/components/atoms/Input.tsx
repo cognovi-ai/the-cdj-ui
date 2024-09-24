@@ -16,6 +16,9 @@ const Input: React.FC<InputProps> = ({
   multiline,
   rows,
   sx,
+  ariaLabel,
+  ariaLabelledBy,
+  tabIndex,
   ...props
 }: InputProps) => {
   return (
@@ -32,6 +35,15 @@ const Input: React.FC<InputProps> = ({
       multiline={multiline}
       rows={rows}
       sx={sx}
+      slotProps={{
+        input: {
+          'aria-label': ariaLabel,
+          'aria-labelledby': ariaLabelledBy,
+        },
+        htmlInput: {
+          tabIndex: tabIndex,
+        },
+      }}
       {...props}
     />
   );
