@@ -1,13 +1,16 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Button from '../../../src/components/atoms/Button';
-import { Button as MuiButton } from '@mui/material';
 import '@testing-library/jest-dom';
 
+import { fireEvent, render, screen } from '@testing-library/react';
+import Button from '../../../src/components/atoms/Button';
+import { Button as MuiButton } from '@mui/material';
+import React from 'react';
+
 jest.mock('@mui/material', () => ({
-  Button: jest.fn().mockImplementation(({ children, ...props }) => (
-    <button {...props}>{children}</button>
-  )),
+  Button: jest
+    .fn()
+    .mockImplementation(({ children, ...props }) => (
+      <button {...props}>{children}</button>
+    )),
 }));
 
 describe('Button component', () => {
@@ -98,7 +101,7 @@ describe('Button component', () => {
   it('should apply sx prop to the button', () => {
     const sx = { margin: 2 };
     render(<Button {...defaultProps} sx={sx} />);
-    
+
     expect(MuiButton).toHaveBeenCalledWith(
       expect.objectContaining({
         sx: expect.objectContaining({
