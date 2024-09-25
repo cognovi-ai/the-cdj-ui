@@ -1,7 +1,8 @@
 'use client';
-import React from 'react';
-import { TextField as MuiInput } from '@mui/material';
+
 import { InputProps } from '@components/atoms/Input';
+import { TextField as MuiInput } from '@mui/material';
+import React from 'react';
 
 const Input: React.FC<InputProps> = ({
   label,
@@ -23,18 +24,14 @@ const Input: React.FC<InputProps> = ({
 }: InputProps) => {
   return (
     <MuiInput
+      disabled={disabled}
+      error={error}
+      helperText={helperText}
       label={label}
-      variant={variant}
-      type={type}
-      value={value}
+      multiline={multiline}
       onChange={onChange}
       placeholder={placeholder}
-      helperText={helperText}
-      error={error}
-      disabled={disabled}
-      multiline={multiline}
       rows={rows}
-      sx={sx}
       slotProps={{
         input: {
           'aria-label': ariaLabel,
@@ -44,6 +41,10 @@ const Input: React.FC<InputProps> = ({
           tabIndex: tabIndex,
         },
       }}
+      sx={sx}
+      type={type}
+      value={value}
+      variant={variant}
       {...props}
     />
   );

@@ -1,7 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Input from '../../../src/components/atoms/Input';
 import '@testing-library/jest-dom';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import Input from '../../../src/components/atoms/Input';
+import React from 'react';
 
 describe('Input component', () => {
   const defaultProps = {
@@ -55,7 +56,9 @@ describe('Input component', () => {
   });
 
   it('should render the input with an error state when error prop is true', () => {
-    render(<Input {...defaultProps} error helperText="This field is required" />);
+    render(
+      <Input {...defaultProps} error helperText="This field is required" />
+    );
     const input = screen.getByLabelText('Test Input');
     expect(input).toBeInTheDocument();
     const errorMessage = screen.getByText('This field is required');

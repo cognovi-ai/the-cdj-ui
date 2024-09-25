@@ -1,8 +1,9 @@
 declare module '@components/atoms/Input' {
-  import { FC, ChangeEventHandler } from 'react';
+  import { ChangeEventHandler, FC } from 'react';
   import { TextFieldProps as MuiInputProps } from '@mui/material/TextField';
 
-  export interface InputProps extends Omit<MuiInputProps, 'variant' | 'onChange'> {
+  export interface InputProps
+    extends Omit<MuiInputProps, 'variant' | 'onChange'> {
     label: string;
     type?: string;
     onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
