@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
-import { Checkbox as MuiCheckbox, FormControlLabel } from '@mui/material';
+import { FormControlLabel, Checkbox as MuiCheckbox } from '@mui/material';
 import { CheckboxProps } from '@components/atoms/Checkbox';
+import React from 'react';
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
@@ -21,15 +21,15 @@ const Checkbox: React.FC<CheckboxProps> = ({
     <FormControlLabel
       control={
         <MuiCheckbox
+          aria-label={ariaLabel}
           checked={checked}
-          onChange={onChange}
           color={color}
           disabled={disabled}
-          size={size}
           indeterminate={indeterminate}
+          onChange={onChange}
           required={required}
+          size={size}
           tabIndex={tabIndex}
-          aria-label={ariaLabel}
           {...props}
         />
       }

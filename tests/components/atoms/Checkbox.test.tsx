@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Checkbox from '../../../src/components/atoms/Checkbox';
 import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import Checkbox from '../../../src/components/atoms/Checkbox';
+import React from 'react';
 
 describe('Checkbox component', () => {
   const defaultProps = {
@@ -44,7 +44,9 @@ describe('Checkbox component', () => {
   });
 
   it('should handle labelPlacement correctly', () => {
-    const { rerender } = render(<Checkbox {...defaultProps} labelPlacement="end" />);
+    const { rerender } = render(
+      <Checkbox {...defaultProps} labelPlacement="end" />
+    );
     const checkboxLabelEnd = screen.getByText('Test Checkbox');
     expect(checkboxLabelEnd).toBeInTheDocument();
 
