@@ -6,7 +6,10 @@ const __dirname = path.dirname(__filename);
 
 export default {
   webpack: (config) => {
-    config.resolve.alias['@components'] = path.join(__dirname, 'src/components');
+    config.resolve.alias['@components'] = path.join(
+      __dirname,
+      'src/components'
+    );
     return config;
-  }
+  },
 };
