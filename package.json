@@ -16,6 +16,7 @@
   "dependencies": {
     "@emotion/cache": "^11.13.1",
     "@emotion/styled": "^11.13.0",
+    "@fontsource/roboto": "^5.1.0",
     "@mui/material": "^6.1.0",
     "@mui/material-nextjs": "^6.0.0",
     "@next/env": "^14.2.7",
