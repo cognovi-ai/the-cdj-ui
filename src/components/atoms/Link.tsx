@@ -2,6 +2,7 @@
 
 import { LinkProps } from '@components/atoms/Link';
 import { Link as MuiLink } from '@mui/material';
+import NextLink from 'next/link';
 import React from 'react';
 
 const Link: React.FC<LinkProps> = ({
@@ -17,13 +18,10 @@ const Link: React.FC<LinkProps> = ({
   children,
   ariaLabel,
   role,
-  component,
   ...props
 }) => {
-  if (!href && component !== 'button') {
-    throw new Error(
-      'The `href` prop is required unless `component="button"` is used.'
-    );
+  if (!href) {
+    throw new Error('The `href` prop is required for the `Link` component.');
   }
 
   const computedRel =
@@ -34,27 +32,28 @@ const Link: React.FC<LinkProps> = ({
       : rel;
 
   const linkProps = {
-    ...(component !== 'button' && { href }),
+    href,
     target,
     rel: computedRel,
     onClick,
     'aria-label': ariaLabel,
     role,
     tabIndex,
-    component,
   };
 
   return (
-    <MuiLink
-      color={color}
-      sx={sx}
-      underline={underline}
-      variant={variant}
-      {...linkProps}
-      {...props}
-    >
-      {children}
-    </MuiLink>
+    <NextLink href={href} legacyBehavior passHref>
+      <MuiLink
+        color={color}
+        sx={sx}
+        underline={underline}
+        variant={variant}
+        {...linkProps}
+        {...props}
+      >
+        {children}
+      </MuiLink>
+    </NextLink>
   );
 };
 
