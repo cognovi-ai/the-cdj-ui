@@ -11,13 +11,19 @@ interface ThemeContextType {
 
 export const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
-  isDarkMode: false,
+  isDarkMode: true,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme ? savedTheme === 'dark' : true;
+    }
+    return true;
+  });
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');

@@ -50,9 +50,9 @@ describe('ThemeProvider functionality', () => {
     );
 
   describe('Initial Render', () => {
-    it('renders in light mode by default when no theme is stored', () => {
+    it('renders in dark mode by default when no theme is stored', () => {
       renderWithThemeProvider();
-      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Light Mode');
+      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Dark Mode');
       expect(localStorage.getItem('theme')).toBeNull();
     });
 
@@ -74,19 +74,7 @@ describe('ThemeProvider functionality', () => {
   });
 
   describe('Theme Toggle Functionality', () => {
-    it('toggles from light to dark mode', async () => {
-      renderWithThemeProvider();
-
-      await act(async () => {
-        fireEvent.click(screen.getByText('Toggle Theme'));
-      });
-
-      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Dark Mode');
-      expect(localStorage.getItem('theme')).toBe('dark');
-    });
-
     it('toggles from dark to light mode', async () => {
-      localStorage.setItem('theme', 'dark');
       renderWithThemeProvider();
 
       await act(async () => {
@@ -97,42 +85,36 @@ describe('ThemeProvider functionality', () => {
       expect(localStorage.getItem('theme')).toBe('light');
     });
 
+    it('toggles from light to dark mode', async () => {
+      localStorage.setItem('theme', 'light');
+      renderWithThemeProvider();
+
+      await act(async () => {
+        fireEvent.click(screen.getByText('Toggle Theme'));
+      });
+
+      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Dark Mode');
+      expect(localStorage.getItem('theme')).toBe('dark');
+    });
+
     it('persists theme choice across multiple toggles', async () => {
       renderWithThemeProvider();
 
       await act(async () => {
         fireEvent.click(screen.getByText('Toggle Theme'));
       });
-      expect(localStorage.getItem('theme')).toBe('dark');
+      expect(localStorage.getItem('theme')).toBe('light');
 
       await act(async () => {
         fireEvent.click(screen.getByText('Toggle Theme'));
       });
-      expect(localStorage.getItem('theme')).toBe('light');
+      expect(localStorage.getItem('theme')).toBe('dark');
     });
   });
 
   describe('Theme Properties', () => {
-    it('applies correct light theme properties', () => {
+    it('applies correct dark theme properties', () => {
       renderWithThemeProvider();
-
-      expect(screen.getByTestId('primary-color')).toHaveTextContent(
-        lightTheme.palette.primary.main
-      );
-      expect(screen.getByTestId('background-color')).toHaveTextContent(
-        lightTheme.palette.background.default
-      );
-      expect(screen.getByTestId('text-color')).toHaveTextContent(
-        lightTheme.palette.text.primary
-      );
-    });
-
-    it('applies correct dark theme properties', async () => {
-      renderWithThemeProvider();
-
-      await act(async () => {
-        fireEvent.click(screen.getByText('Toggle Theme'));
-      });
 
       expect(screen.getByTestId('primary-color')).toHaveTextContent(
         darkTheme.palette.primary.main
@@ -145,16 +127,27 @@ describe('ThemeProvider functionality', () => {
       );
     });
 
-    it('maintains theme properties after multiple toggles', async () => {
+    it('applies correct light theme properties after toggle', async () => {
       renderWithThemeProvider();
-
-      expect(screen.getByTestId('primary-color')).toHaveTextContent(
-        lightTheme.palette.primary.main
-      );
 
       await act(async () => {
         fireEvent.click(screen.getByText('Toggle Theme'));
       });
+
+      expect(screen.getByTestId('primary-color')).toHaveTextContent(
+        lightTheme.palette.primary.main
+      );
+      expect(screen.getByTestId('background-color')).toHaveTextContent(
+        lightTheme.palette.background.default
+      );
+      expect(screen.getByTestId('text-color')).toHaveTextContent(
+        lightTheme.palette.text.primary
+      );
+    });
+
+    it('maintains theme properties after multiple toggles', async () => {
+      renderWithThemeProvider();
+
       expect(screen.getByTestId('primary-color')).toHaveTextContent(
         darkTheme.palette.primary.main
       );
@@ -165,13 +158,20 @@ describe('ThemeProvider functionality', () => {
       expect(screen.getByTestId('primary-color')).toHaveTextContent(
         lightTheme.palette.primary.main
       );
+
+      await act(async () => {
+        fireEvent.click(screen.getByText('Toggle Theme'));
+      });
+      expect(screen.getByTestId('primary-color')).toHaveTextContent(
+        darkTheme.palette.primary.main
+      );
     });
   });
 
   describe('Theme Context', () => {
     it('provides isDarkMode value through context', () => {
       renderWithThemeProvider();
-      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Light Mode');
+      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Dark Mode');
     });
 
     it('updates context value when theme changes', async () => {
@@ -181,7 +181,7 @@ describe('ThemeProvider functionality', () => {
         fireEvent.click(screen.getByText('Toggle Theme'));
       });
 
-      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Dark Mode');
+      expect(screen.getByTestId('theme-mode')).toHaveTextContent('Light Mode');
     });
   });
 });
