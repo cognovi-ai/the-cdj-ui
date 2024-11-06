@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const commonSettings = {
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif, ',
+    fontFamily: 'Roboto',
     body1: {
       color: 'var(--common-white_states-main, #FFF)',
       fontFamily: 'Roboto',
