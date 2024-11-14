@@ -1,20 +1,45 @@
 'use client';
 import { Container, Divider } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import Link from '../../src/components/atoms/Link';
-import React from 'react';
 import Text from '../../src/components/atoms/Text';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 
-const REDIRECT_ROUTE = '/';
+export const NotFoundContent = () => {
+  const router = useRouter();
 
-function NotFound() {
-  const backLink =
-    document.referrer &&
-    new URL(document.referrer).origin === window.location.origin
-      ? document.referrer
-      : REDIRECT_ROUTE;
+  const [backLink, setBackLink] = useState('/');
+  const [linkLabel, setLinkLabel] = useState('Go to Home Page');
+  const [ariaLabel, setAriaLabel] = useState('Go to Home Page');
 
-  const linkLabel = backLink === REDIRECT_ROUTE ? 'Go to login' : 'Go back';
+  useEffect(() => {
+    if (typeof window !== 'undefined' && document.referrer) {
+      const referrerOrigin = new URL(document.referrer).origin;
+      const currentOrigin = window.location.origin;
+
+      const initialBackLink =
+        referrerOrigin === currentOrigin ? document.referrer : '/';
+      const initialLinkLabel =
+        initialBackLink === '/' ? 'Go to Home Page' : 'Return to Previous Page';
+
+      setBackLink(initialBackLink);
+      setLinkLabel(initialLinkLabel);
+
+      const initialAriaLabel =
+        initialBackLink === '/' ? 'Go to Home Page' : 'Return to Previous Page';
+      setAriaLabel(initialAriaLabel);
+    }
+  }, []);
+
+  const handleBack = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (backLink === document.referrer) {
+      router.back();
+    } else {
+      router.push(backLink);
+    }
+  };
 
   return (
     <Container
@@ -30,12 +55,14 @@ function NotFound() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <Text variant="h2">404</Text>
+        <Text variant="h1">404</Text>
         <Divider flexItem orientation="vertical" style={{ height: '40px' }} />
-        <Text variant="h2">Page not found.</Text>
+        <Text variant="h2">This page could not be found.</Text>
       </div>
       <Link
+        aria-label={ariaLabel}
         href={backLink}
+        onClick={handleBack}
         sx={{
           marginTop: '1rem',
           color: 'primary.main',
@@ -48,10 +75,10 @@ function NotFound() {
       </Link>
     </Container>
   );
-}
+};
 
-const DynamicNotFound = dynamic(() => Promise.resolve(NotFound), {
+const NotFound = dynamic(() => Promise.resolve(NotFoundContent), {
   ssr: false,
 });
 
-export default DynamicNotFound;
+export default NotFound;
