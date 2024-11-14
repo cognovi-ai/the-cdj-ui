@@ -10,8 +10,8 @@ export const NotFoundContent = () => {
   const router = useRouter();
 
   const [backLink, setBackLink] = useState('/');
-  const [linkLabel, setLinkLabel] = useState('Go to Home Page');
-  const [ariaLabel, setAriaLabel] = useState('Go to Home Page');
+  const [linkLabel, setLinkLabel] = useState('Go to Login');
+  const [ariaLabel, setAriaLabel] = useState('Go to Login');
 
   useEffect(() => {
     if (typeof window !== 'undefined' && document.referrer) {
@@ -21,13 +21,13 @@ export const NotFoundContent = () => {
       const initialBackLink =
         referrerOrigin === currentOrigin ? document.referrer : '/';
       const initialLinkLabel =
-        initialBackLink === '/' ? 'Go to Home Page' : 'Return to Previous Page';
+        initialBackLink === '/' ? 'Go to Login' : 'Return to Previous Page';
 
       setBackLink(initialBackLink);
       setLinkLabel(initialLinkLabel);
 
       const initialAriaLabel =
-        initialBackLink === '/' ? 'Go to Home Page' : 'Return to Previous Page';
+        initialBackLink === '/' ? 'Go to Login' : 'Return to Previous Page';
       setAriaLabel(initialAriaLabel);
     }
   }, []);

@@ -35,7 +35,7 @@ describe('NotFoundContent Component', () => {
     });
   });
 
-  it('should render "Go to Home Page" when there is no referrer', async () => {
+  it('should render "Go to Login" when there is no referrer', async () => {
     Object.defineProperty(window, 'location', {
       value: { origin: 'http://localhost' },
       writable: true,
@@ -44,7 +44,7 @@ describe('NotFoundContent Component', () => {
 
     render(<NotFoundContent />);
 
-    expect(await screen.findByText('Go to Home Page')).toBeInTheDocument();
+    expect(await screen.findByText('Go to Login')).toBeInTheDocument();
   });
 
   it('should render "Return to Previous Page" when referrer is from the same origin', async () => {
@@ -64,7 +64,7 @@ describe('NotFoundContent Component', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render "Go to Home Page" when referrer is from a different origin', async () => {
+  it('should render "Go to Login" when referrer is from a different origin', async () => {
     Object.defineProperty(window, 'location', {
       value: { origin: 'http://localhost' },
       writable: true,
@@ -76,7 +76,7 @@ describe('NotFoundContent Component', () => {
 
     render(<NotFoundContent />);
 
-    expect(await screen.findByText('Go to Home Page')).toBeInTheDocument();
+    expect(await screen.findByText('Go to Login')).toBeInTheDocument();
   });
 
   it('clicking the link calls router.back() when backLink matches document.referrer', async () => {
@@ -111,7 +111,7 @@ describe('NotFoundContent Component', () => {
 
     render(<NotFoundContent />);
 
-    const linkElement = await screen.findByText('Go to Home Page');
+    const linkElement = await screen.findByText('Go to Login');
     fireEvent.click(linkElement);
 
     expect(mockPush).toHaveBeenCalledWith('/');
