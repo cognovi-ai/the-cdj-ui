@@ -1,5 +1,6 @@
 declare module '@components/atoms/Text' {
   import { FC, ReactNode } from 'react';
+  import { SxProps } from '@mui/material';
 
   export interface TextProps {
     variant?:
@@ -28,6 +29,7 @@ declare module '@components/atoms/Text' {
     gutterBottom?: boolean;
     noWrap?: boolean;
     children: ReactNode;
+    sx?: SxProps;
   }
 
   const Text: FC<TextProps>;
