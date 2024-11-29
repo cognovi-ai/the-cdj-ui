@@ -9,6 +9,7 @@ const Text: React.FC<TextProps> = ({
   gutterBottom = false,
   noWrap = false,
   children,
+  sx,
 }: TextProps) => {
   return (
     <Typography
@@ -16,6 +17,7 @@ const Text: React.FC<TextProps> = ({
       color={color}
       gutterBottom={gutterBottom}
       noWrap={noWrap}
+      sx={sx}
       variant={variant}
     >
       {children}
