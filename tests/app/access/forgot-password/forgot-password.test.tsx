@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 describe('Forgot Password Page', () => {
-  it('renders the ForgotPassword component without crashing', () => {
+  it('renders the ForgotPassword component', () => {
     expect(() => render(<ForgotPassword />)).not.toThrow();
   });
 });

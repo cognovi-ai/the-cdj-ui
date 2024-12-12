@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 describe('Account Page', () => {
-  it('renders the Account component without crashing', () => {
+  it('renders the Account component', () => {
     expect(() => render(<Account />)).not.toThrow();
   });
 });

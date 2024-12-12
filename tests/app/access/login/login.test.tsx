@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 describe('Login Page', () => {
-  it('renders the Login component without crashing', () => {
+  it('renders the Login component', () => {
     expect(() => render(<Login />)).not.toThrow();
   });
 });
