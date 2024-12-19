@@ -1,0 +1,11 @@
+{
+  "entryPoints": [
+    "src/app/page.tsx"
+  ],
+  "out": "docs",
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "excludePrivate": true,
+  "readme": "none"
+}
