@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
+    "docs:generate": "./generate-docs.sh",
+    "docs:dev": "npm run start --prefix ./docusaurus",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest"
@@ -46,6 +48,8 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.3.3",
+    "typedoc": "^0.27.5",
+    "typedoc-plugin-markdown": "^4.3.3",
     "typescript": "^5"
   }
 }
