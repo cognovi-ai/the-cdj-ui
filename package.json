@@ -9,11 +9,14 @@
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
-    "docs:generate": "./scripts/typedoc/generate-docs.sh",
-    "docs:dev": "npm run start --prefix ./docusaurus",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "jest"
+    "test": "jest",
+    "docs:generate": "./scripts/typedoc/generate-docs.sh",
+    "docs:dev": "npm run start --prefix ./docusaurus",
+    "docs:build": "npm run build --prefix ./docusaurus",
+    "docs:serve": "npm run serve --prefix ./docusaurus",
+    "docs:deploy": "gh-pages -d ./docusaurus/build"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
