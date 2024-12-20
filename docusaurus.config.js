@@ -13,6 +13,7 @@ export const config = [
         routeBasePath: '/',
       },
       blog: false,
+      cleanUrl: true,
     },
   ],
 ];

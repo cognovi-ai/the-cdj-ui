@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
-    "docs:generate": "./generate-docs.sh",
+    "docs:generate": "./scripts/typedoc/generate-docs.sh",
     "docs:dev": "npm run start --prefix ./docusaurus",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

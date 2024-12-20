@@ -1,6 +1,7 @@
 ---
 title: The CDJ UI
 sidebar_label: Welcome
+sidebar_position: 1
 ---
 
 **Official Documentation**
