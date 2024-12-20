@@ -102,6 +102,30 @@ const config = {
         ],
       },
     ],
+    /**
+     * Convenience plugin to redirect to /docs when the root path is accessed
+     * in the dev server.
+     */
+    function redirectToDocs() {
+      return {
+        name: 'redirect-to-docs',
+        configureWebpack() {
+          return {
+            devServer: {
+              setupMiddlewares: (middlewares, devServer) => {
+                if (!devServer) {
+                  throw new Error('DevServer is not defined');
+                }
+                devServer.app.get('/', (_, res) => {
+                  res.redirect(301, '/docs');
+                });
+                return middlewares;
+              },
+            },
+          };
+        },
+      };
+    },
   ],
 };
 
