@@ -7,7 +7,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://cognovi-ai.github.io',
-  baseUrl: '/',
+  baseUrl: '/the-cdj-ui/',
 
   // GitHub pages deployment config.
   organizationName: 'Cognovi',
@@ -28,9 +28,10 @@ const config = {
       ({
         docs: {
           path: '../docs',
-          routeBasePath: '/docs',
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
         },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -89,44 +90,6 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
-
-  plugins: [
-    [
-      '@docusaurus/plugin-client-redirects',
-      {
-        redirects: [
-          {
-            to: '/docs',
-            from: '/',
-          },
-        ],
-      },
-    ],
-    /**
-     * Convenience plugin to redirect to /docs when the root path is accessed
-     * in the dev server.
-     */
-    function redirectToDocs() {
-      return {
-        name: 'redirect-to-docs',
-        configureWebpack() {
-          return {
-            devServer: {
-              setupMiddlewares: (middlewares, devServer) => {
-                if (!devServer) {
-                  throw new Error('DevServer is not defined');
-                }
-                devServer.app.get('/', (_, res) => {
-                  res.redirect(301, '/docs');
-                });
-                return middlewares;
-              },
-            },
-          };
-        },
-      };
-    },
-  ],
 };
 
 export default config;
