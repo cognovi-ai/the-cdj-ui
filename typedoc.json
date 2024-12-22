@@ -1,0 +1,18 @@
+{
+  "entryPoints": [
+    "src/app/page.tsx"
+  ],
+  "out": "docs",
+  "outputs": [
+    {
+      "name": "md",
+      "path": "Components"
+    }
+  ],
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "./scripts/typedoc/plugins/custom-output.mjs"
+  ],
+  "excludePrivate": true,
+  "readme": "none"
+}
