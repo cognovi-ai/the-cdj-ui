@@ -1,10 +1,9 @@
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-interface ApiOptions {
+export interface ApiOptions {
   method?: Method;
   body?: Record<string, unknown>;
   headers?: Record<string, string>;
-  token?: string;
 }
 
 interface ApiError extends Error {
@@ -14,9 +13,14 @@ interface ApiError extends Error {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+const defaultOptions: ApiOptions = {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+};
+
 export const apiRequest = async <T>(
   url: string,
-  { method = 'GET', body, headers = {}, token }: ApiOptions = {}
+  options: ApiOptions = defaultOptions
 ): Promise<T> => {
   const defaultHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -40,7 +44,6 @@ export const apiRequest = async <T>(
     const jsonResponse: T = await response.json();
 
     if (!response.ok) {
-      console.error('API Error Response:', jsonResponse);
 
       interface JsonResponseWithFlash {
         flash?: Record<string, unknown>;
@@ -66,7 +69,6 @@ export const apiRequest = async <T>(
     if (error instanceof Error && 'flash' in error) {
       throw error;
     }
-    console.error('Unexpected API Error:', error);
     throw new Error('Unexpected API Error');
   }
 };
