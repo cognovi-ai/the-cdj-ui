@@ -22,7 +22,6 @@ describe('apiRequest', () => {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/test-endpoint`
     );
     expect(fetchCalls[0][1]).toMatchObject({
-      method: undefined,
       method: 'GET',
       credentials: 'include',
     });
