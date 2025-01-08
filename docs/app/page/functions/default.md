@@ -1,8 +1,8 @@
-[**the-cdj-ui**](../README.md)
+[**the-cdj-ui**](../../../README.md)
 
 ***
 
-[the-cdj-ui](../README.md) / default
+[the-cdj-ui](../../../README.md) / [app/page](../README.md) / default
 
 # Function: default()
 
@@ -18,4 +18,4 @@ application.
 
 ## Defined in
 
-[page.tsx:8](https://github.com/hiyaryan/the-cdj-ui/blob/b8e1b6af9ddc33969bbe4132b67de35ad0c004db/src/app/page.tsx#L8)
+[src/app/page.tsx:8](https://github.com/hiyaryan/the-cdj-ui/blob/66083ffd99c70e3de7b7a7a2d26584eb05be11c4/src/app/page.tsx#L8)

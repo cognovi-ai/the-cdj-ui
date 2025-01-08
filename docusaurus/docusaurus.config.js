@@ -14,7 +14,7 @@ const config = {
   projectName: 'the-cdj-ui',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'ignore',
 
   i18n: {
     defaultLocale: 'en',
