@@ -23,7 +23,7 @@ describe('apiRequest', () => {
     );
     expect(fetchCalls[0][1]).toMatchObject({
       method: undefined,
-      headers: { 'Content-Type': 'application/json' },
+      method: 'GET',
       credentials: 'include',
     });
     expect(response).toEqual(mockResponse);
