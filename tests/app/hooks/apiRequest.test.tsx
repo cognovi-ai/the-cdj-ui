@@ -1,48 +1,48 @@
 import { ApiOptions, apiRequest } from '../../../src/hooks/apiRequest';
-import { handleApiError } from '../../../src/utils/errorHandling';
 
 global.fetch = jest.fn();
-
-jest.mock('../../../src/utils/errorHandling', () => ({
-  handleApiError: jest.fn(),
-}));
 
 describe('apiRequest', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should use default options for a basic request', async () => {
+  it('should use default options for a basic GET request', async () => {
     const mockResponse = { data: 'test data' };
-    (handleApiError as jest.Mock).mockResolvedValueOnce(mockResponse);
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockResponse),
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
-    await apiRequest('/test-endpoint');
+    const response = await apiRequest('/test-endpoint');
 
     const fetchCalls = (global.fetch as jest.Mock).mock.calls;
 
+    expect(fetchCalls[0][0]).toBe(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/test-endpoint`
+    );
     expect(fetchCalls[0][1]).toMatchObject({
+      method: undefined,
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
+    expect(response).toEqual(mockResponse);
   });
 
   it('should override default options with custom options', async () => {
-    const mockResponse = { data: 'test data' };
-    (handleApiError as jest.Mock).mockResolvedValueOnce(mockResponse);
+    const mockResponse = { data: 'custom data' };
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockResponse),
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
     const customOptions: ApiOptions = {
+      method: 'POST',
       headers: {
         Authorization: 'Bearer token',
         'Content-Type': 'application/json',
       },
+      body: { name: 'test' },
       credentials: 'include',
     };
 
@@ -50,27 +50,35 @@ describe('apiRequest', () => {
 
     const fetchCalls = (global.fetch as jest.Mock).mock.calls;
 
-    expect(fetchCalls[0][1]).toMatchObject(customOptions);
+    expect(fetchCalls[0][1]).toMatchObject({
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer token',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ name: 'test' }),
+    });
   });
 
-  it('should make a successful POST request', async () => {
-    const mockResponse = { data: 'created' };
-    const requestBody = { name: 'test' };
+  it('should make a successful POST request and return the correct response', async () => {
+    const mockResponse = { message: 'Success' };
+    const requestBody = { email: 'test@example.com', password: 'password123' };
 
-    (handleApiError as jest.Mock).mockResolvedValueOnce(mockResponse);
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockResponse),
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
     const options: ApiOptions = {
       method: 'POST',
       body: requestBody,
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
     };
 
-    const result = await apiRequest('/create', options);
+    const response = await apiRequest('/register', options);
+
+    expect(response).toEqual(mockResponse);
 
     const fetchCalls = (global.fetch as jest.Mock).mock.calls;
 
@@ -78,44 +86,28 @@ describe('apiRequest', () => {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
     });
-    expect(result).toEqual(mockResponse);
   });
 
-  it('should handle API errors', async () => {
-    const errorResponse = {
-      flash: {
-        error: ['Invalid request'],
-      },
-    };
-
-    const apiError = new Error('Invalid request');
-    Object.assign(apiError, {
-      flash: errorResponse.flash,
-      statusCode: 400,
-    });
+  it('should throw an error for non-OK responses', async () => {
+    const errorResponse = { message: 'Error occurred' };
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       status: 400,
-      json: () => Promise.resolve(errorResponse),
+      json: jest.fn().mockResolvedValueOnce(errorResponse),
     });
 
-    (handleApiError as jest.Mock).mockRejectedValueOnce(apiError);
-
-    await expect(apiRequest('/test-endpoint')).rejects.toThrow(
-      'Invalid request'
+    await expect(apiRequest('/error-endpoint')).rejects.toThrow(
+      JSON.stringify(errorResponse)
     );
   });
 
-  it('should handle network errors', async () => {
+  it('should handle network errors gracefully', async () => {
     (global.fetch as jest.Mock).mockRejectedValueOnce(
       new Error('Network error')
     );
 
-    await expect(apiRequest('/test-endpoint')).rejects.toThrow(
-      'Unexpected API Error'
-    );
+    await expect(apiRequest('/test-endpoint')).rejects.toThrow('Network error');
   });
 });
