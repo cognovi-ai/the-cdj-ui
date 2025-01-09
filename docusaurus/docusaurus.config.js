@@ -13,7 +13,7 @@ const config = {
   organizationName: 'Cognovi',
   projectName: 'the-cdj-ui',
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'ignore',
 
   i18n: {
