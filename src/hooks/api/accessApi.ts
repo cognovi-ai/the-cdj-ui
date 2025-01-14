@@ -227,7 +227,7 @@ const journal = (
   journalId: string,
   body?: JournalBody
 ): RequestBundle => {
-  const endpoint = `/journal/${journalId}`;
+  const endpoint = `/${journalId}`;
   return {
     endpoint,
     options: {
