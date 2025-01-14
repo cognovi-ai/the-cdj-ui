@@ -1,6 +1,4 @@
-type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 const DEFAULT_OPTIONS: ApiOptions = {
   method: 'GET',
@@ -48,7 +46,7 @@ export const apiRequest = async <T>(
   url: string,
   options: ApiOptions = DEFAULT_OPTIONS
 ): Promise<T> => {
-  const response = await fetch(`${API_BASE_URL}${url}`, {
+  const response = await fetch(url, {
     ...(options as RequestInit),
     body: options.body && JSON.stringify(options.body),
   });

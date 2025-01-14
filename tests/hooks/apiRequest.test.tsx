@@ -1,4 +1,4 @@
-import { ApiOptions, apiRequest } from '../../../src/hooks/apiRequest';
+import { ApiOptions, apiRequest } from '../../src/hooks/apiRequest';
 
 global.fetch = jest.fn();
 
