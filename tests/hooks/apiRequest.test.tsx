@@ -18,9 +18,7 @@ describe('apiRequest', () => {
 
     const fetchCalls = (global.fetch as jest.Mock).mock.calls;
 
-    expect(fetchCalls[0][0]).toBe(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/test-endpoint`
-    );
+    expect(fetchCalls[0][0]).toBe('/test-endpoint');
     expect(fetchCalls[0][1]).toMatchObject({
       method: 'GET',
       credentials: 'include',
