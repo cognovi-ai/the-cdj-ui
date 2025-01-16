@@ -76,6 +76,7 @@ interface Api {
 
   /**
    * Handles user registration
+   *
    * @param body - Registration information
    * @returns {RequestBundle} Bundle containing endpoint and request options
    */
@@ -175,7 +176,8 @@ export interface ResetPasswordBody extends Record<string, unknown> {
  * Represents the body of a journal entry.
  *
  * @property title - The title of the journal entry (optional).
- * @property description - The description or content of the journal entry (optional).
+ * @property description - The description or content of the journal entry
+ * (optional).
  */
 export interface JournalBody extends Record<string, unknown> {
   title?: string;
