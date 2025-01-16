@@ -24,6 +24,7 @@ export const useAccess = () => {
    * @returns {Promise<T>} Promise resolving to the response data
    * @throws {Error} When the API request fails
    * @returns {Promise<T>} Promise resolving to the response data or an error
+   */
   const request = async <T>(requestBundle: RequestBundle): Promise<T> => {
     const accessUri = `${ACCESS_BASE_URL}${requestBundle.endpoint}`;
 
