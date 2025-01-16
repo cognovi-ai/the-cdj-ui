@@ -4,6 +4,7 @@ const ACCESS_BASE_URL = process.env.NEXT_PUBLIC_ACCESS_BASE_URL;
 
 /**
  * Interface representing the structure of an API request bundle
+ *
  * @interface RequestBundle
  */
 export interface RequestBundle {
@@ -12,6 +13,8 @@ export interface RequestBundle {
 }
 
 /**
+ * Custom hook for making API requests to the access API
+ *
  * @returns Object containing request method for making API calls
  */
 export const useAccess = () => {
@@ -20,17 +23,13 @@ export const useAccess = () => {
    * @param requestBundle - Bundle containing endpoint and request options
    * @returns {Promise<T>} Promise resolving to the response data
    * @throws {Error} When the API request fails
-   */
+   * @returns {Promise<T>} Promise resolving to the response data or an error
   const request = async <T>(requestBundle: RequestBundle): Promise<T> => {
-    try {
-      const accessUri = `${ACCESS_BASE_URL}${requestBundle.endpoint}`;
-      return await apiRequest<T>(accessUri, {
-        ...requestBundle.options,
-      });
-    } catch (error) {
-      console.error('Error in request:', error);
-      throw error;
-    }
+    const accessUri = `${ACCESS_BASE_URL}${requestBundle.endpoint}`;
+
+    return await apiRequest<T>(accessUri, {
+      ...requestBundle.options,
+    });
   };
 
   return { request };
