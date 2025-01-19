@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 /** @type {import('jest').Config} */
 export default {
   testEnvironment: 'jsdom',
