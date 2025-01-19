@@ -1,5 +1,6 @@
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
+import tsDocPlugin from 'eslint-plugin-tsdoc';
 import stylisticTs from '@stylistic/eslint-plugin-ts';
 import pluginJest from 'eslint-plugin-jest';
 
@@ -12,6 +13,7 @@ export default [
       '@typescript-eslint': typescriptPlugin,
       '@stylistic/ts': stylisticTs,
       'jest': pluginJest,
+      'tsdoc': tsDocPlugin,
     },
   },
   {
@@ -43,6 +45,7 @@ export default [
       'no-path-concat': 'error',
       'no-process-exit': 'warn',
       '@typescript-eslint/no-unused-vars': ['error'],
+      "tsdoc/syntax": "warn",
       'jest/no-disabled-tests': 'warn',
       'jest/no-focused-tests': 'error',
       'jest/no-identical-title': 'error',

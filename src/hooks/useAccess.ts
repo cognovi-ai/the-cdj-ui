@@ -3,9 +3,9 @@ import { ApiOptions, apiRequest } from './apiRequest';
 const ACCESS_BASE_URL = process.env.NEXT_PUBLIC_ACCESS_BASE_URL;
 
 /**
- * Interface representing the structure of an API request bundle
- *
- * @interface RequestBundle
+ * The request bundle expected by the `useAccess` hook.
+ * @typeParam endpoint - The endpoint to call, relative to `ACCESS_BASE_URL`.
+ * @typeParam options - The options to use for the request.
  */
 export interface RequestBundle {
   endpoint: string;
@@ -14,16 +14,15 @@ export interface RequestBundle {
 
 /**
  * Custom hook for making API requests to the access API
- *
  * @returns Object containing request method for making API calls
  */
 export const useAccess = () => {
   /**
-   * @template T Type of the expected response data
+   * @typeParam T - The type of the response data
    * @param requestBundle - Bundle containing endpoint and request options
-   * @returns {Promise<T>} Promise resolving to the response data
-   * @throws {Error} When the API request fails
-   * @returns {Promise<T>} Promise resolving to the response data or an error
+   * @throws An error When the API request fails
+   * @returns A promise resolving to the response data
+   * @returns A Promise resolving to the response data or an error
    */
   const request = async <T>(requestBundle: RequestBundle): Promise<T> => {
     const accessUri = `${ACCESS_BASE_URL}${requestBundle.endpoint}`;
