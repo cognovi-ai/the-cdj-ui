@@ -14,6 +14,16 @@ const DEFAULT_OPTIONS: ApiOptions = {
 };
 
 /**
+ * The request bundle expected by the `useAccess` hook.
+ * @typeParam endpoint - The endpoint to call, relative to `ACCESS_BASE_URL`.
+ * @typeParam options - The options to use for the request.
+ */
+export interface RequestBundle {
+  endpoint: string;
+  options: ApiOptions;
+}
+
+/**
  * Options for configuring an API request.
  * @typeParam method - The HTTP Method to use for the request.
  * @typeParam body - The request body to send with

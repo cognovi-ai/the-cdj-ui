@@ -1,5 +1,4 @@
-import { Method } from '../apiRequest';
-import { RequestBundle } from '../useAccess';
+import { Method, RequestBundle } from '../apiRequest';
 
 /**
  * API interface defining all available endpoint methods

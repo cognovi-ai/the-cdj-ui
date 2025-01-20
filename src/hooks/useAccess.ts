@@ -1,16 +1,6 @@
-import { ApiOptions, apiRequest } from './apiRequest';
+import { RequestBundle, apiRequest } from './apiRequest';
 
 const ACCESS_BASE_URL = process.env.NEXT_PUBLIC_ACCESS_BASE_URL;
-
-/**
- * The request bundle expected by the `useAccess` hook.
- * @typeParam endpoint - The endpoint to call, relative to `ACCESS_BASE_URL`.
- * @typeParam options - The options to use for the request.
- */
-export interface RequestBundle {
-  endpoint: string;
-  options: ApiOptions;
-}
 
 /**
  * Custom hook for making API requests to the access API
