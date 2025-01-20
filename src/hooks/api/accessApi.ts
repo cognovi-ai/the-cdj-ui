@@ -2,18 +2,15 @@ import { Method } from '../apiRequest';
 import { RequestBundle } from '../useAccess';
 
 /**
- * Main API interface defining all available endpoint methods
- *
- * @interface Api
+ * API interface defining all available endpoint methods
  */
 interface Api {
   /**
    * Manages journal operations
-   *
    * @param method - HTTP method to be used
    * @param journalId - Unique identifier for the journal
    * @param body - Optional journal data
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   journal: (
     method: Method,
@@ -23,11 +20,10 @@ interface Api {
 
   /**
    * Manages account operations
-   *
    * @param method - HTTP method to be used
    * @param journalId - Unique identifier for the journal context
    * @param body - Account data to be processed
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   account: (
     method: Method,
@@ -37,58 +33,51 @@ interface Api {
 
   /**
    * Handles user login
-   *
    * @param body - Login credentials
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   login: (body: LoginBody) => RequestBundle;
 
   /**
    * Handles token-based login
-   *
    * @param body - Token login data
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   'token-login': (body: TokenLoginBody) => RequestBundle;
 
   /**
    * Initiates password recovery process
-   *
    * @param body - Email information for password recovery
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   'forgot-password': (body: ForgotPasswordBody) => RequestBundle;
 
   /**
    * Handles password reset
-   *
    * @param body - New password and reset token
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   'reset-password': (body: ResetPasswordBody) => RequestBundle;
 
   /**
    * Handles user logout
-   *
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   logout: () => RequestBundle;
 
   /**
    * Handles user registration
-   *
    * @param body - Registration information
-   * @returns {RequestBundle} Bundle containing endpoint and request options
+   * @returns A bundle containing endpoint and request options
    */
   register: (body: RegisterBody) => RequestBundle;
 }
 
 /**
  * Represents the body of a login request.
- *
- * @property email - The email address of the user.
- * @property password - The password of the user.
- * @property remember - Whether the user's session should be remembered.
+ * @typeParam email - The email address of the user.
+ * @typeParam password - The password of the user.
+ * @typeParam remember - Whether the user's session should be remembered.
  */
 export interface LoginBody extends Record<string, unknown> {
   email: string;
@@ -98,8 +87,7 @@ export interface LoginBody extends Record<string, unknown> {
 
 /**
  * Represents the body of a token-based login request.
- *
- * @property token - The token used for authentication.
+ * @typeParam token - The token used for authentication.
  */
 export interface TokenLoginBody extends Record<string, unknown> {
   token: string;
@@ -107,29 +95,37 @@ export interface TokenLoginBody extends Record<string, unknown> {
 
 /**
  * Represents the body of an account update request.
- *
- * @property profile - Profile details of the user.
- * @property profile.fname - First name of the user.
- * @property profile.lname - Last name of the user.
- * @property profile.email - Email address of the user.
- * @property password - Password details of the user.
- * @property password.oldPassword - The current password of the user.
- * @property password.newPassword - The new password of the user.
- * @property config - Configuration settings.
- * @property config.model.chat - Chat model configuration.
- * @property config.model.analysis - Analysis model configuration.
+ * @typeParam profile - Profile details of the user.
+ * @typeParam password - Password details of the user.
+ * @typeParam config - Configuration settings.
  */
 interface AccountBody extends Record<string, unknown> {
+  /**
+   * @typeParam fname - First name of the user.
+   * @typeParam lname - Last name of the user.
+   * @typeParam email - Email address of the user.
+   */
   profile: {
     fname: string;
     lname: string;
     email: string;
   };
+  /**
+   * @typeParam oldPassword - The current password of the user.
+   * @typeParam newPassword - The new password of the user.
+   */
   password: {
     oldPassword: string;
     newPassword: string;
   };
+  /**
+   * @typeParam model - Model settings for the user.
+   */
   config: {
+    /**
+     * @typeParam chat - Chat model option.
+     * @typeParam analysis - Analysis model option.
+     */
     model: {
       chat: string;
       analysis: string;
@@ -140,10 +136,10 @@ interface AccountBody extends Record<string, unknown> {
 /**
  * Represents the body of a user registration request.
  *
- * @property fname - First name of the user.
- * @property lname - Last name of the user.
- * @property email - Email address of the user.
- * @property password - The password for the new account.
+ * @typeParam fname - First name of the user.
+ * @typeParam lname - Last name of the user.
+ * @typeParam email - Email address of the user.
+ * @typeParam password - The password for the new account.
  */
 export interface RegisterBody extends Record<string, unknown> {
   fname: string;
@@ -154,8 +150,7 @@ export interface RegisterBody extends Record<string, unknown> {
 
 /**
  * Represents the body of a forgot password request.
- *
- * @property email - The email address of the user requesting password recovery.
+ * @typeParam email - The email address of the user requesting password recovery.
  */
 export interface ForgotPasswordBody extends Record<string, unknown> {
   email: string;
@@ -163,9 +158,8 @@ export interface ForgotPasswordBody extends Record<string, unknown> {
 
 /**
  * Represents the body of a reset password request.
- *
- * @property newPassword - The new password for the user's account.
- * @property token - The token used to authorize the password reset.
+ * @typeParam newPassword - The new password for the user's account.
+ * @typeParam token - The token used to authorize the password reset.
  */
 export interface ResetPasswordBody extends Record<string, unknown> {
   newPassword: string;
@@ -174,9 +168,8 @@ export interface ResetPasswordBody extends Record<string, unknown> {
 
 /**
  * Represents the body of a journal entry.
- *
- * @property title - The title of the journal entry (optional).
- * @property description - The description or content of the journal entry
+ * @typeParam title - The title of the journal entry (optional).
+ * @typeParam description - The description or content of the journal entry
  * (optional).
  */
 export interface JournalBody extends Record<string, unknown> {
@@ -186,9 +179,8 @@ export interface JournalBody extends Record<string, unknown> {
 
 /**
  * Creates a request bundle for user login
- *
  * @param body - Login credentials and preferences
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const login = (body: LoginBody): RequestBundle => {
   return {
@@ -203,9 +195,8 @@ const login = (body: LoginBody): RequestBundle => {
 
 /**
  * Creates a request bundle for token-based login
- *
  * @param body - Token login data
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const tokenLogin = (body: TokenLoginBody): RequestBundle => {
   return {
@@ -220,9 +211,8 @@ const tokenLogin = (body: TokenLoginBody): RequestBundle => {
 
 /**
  * Creates a request bundle for user registration
- *
  * @param body - User registration information
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const register = (body: RegisterBody): RequestBundle => {
   return {
@@ -237,11 +227,10 @@ const register = (body: RegisterBody): RequestBundle => {
 
 /**
  * Creates a request bundle for journal operations
- *
  * @param method - HTTP method to be used
  * @param journalId - Unique identifier for the journal
  * @param body - Optional journal data
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const journal = (
   method: Method,
@@ -261,12 +250,11 @@ const journal = (
 
 /**
  * Creates a request bundle for account operations
- *
  * @param method - HTTP method to be used
  * @param journalId - Unique identifier for the journal context
  * @param body - Account data to be processed
- * @throws {Error} When journal ID is not provided
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @throws an error if the journal ID is not provided
+ * @returns A bundle containing endpoint and request options
  */
 const account = (
   method: Method,
@@ -289,9 +277,8 @@ const account = (
 
 /**
  * Creates a request bundle for password recovery initiation
- *
  * @param body - User's email information
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const forgotPassword = (body: ForgotPasswordBody): RequestBundle => {
   return {
@@ -306,9 +293,8 @@ const forgotPassword = (body: ForgotPasswordBody): RequestBundle => {
 
 /**
  * Creates a request bundle for password reset
- *
  * @param body - New password and reset token
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const resetPassword = (body: ResetPasswordBody): RequestBundle => {
   return {
@@ -323,8 +309,7 @@ const resetPassword = (body: ResetPasswordBody): RequestBundle => {
 
 /**
  * Creates a request bundle for user logout
- *
- * @returns {RequestBundle} Bundle containing endpoint and request options
+ * @returns A bundle containing endpoint and request options
  */
 const logout = (): RequestBundle => {
   return {

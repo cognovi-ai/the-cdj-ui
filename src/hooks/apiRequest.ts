@@ -1,3 +1,10 @@
+/**
+ * The available HTTP methods for an API request.
+ * @typeParam GET - The GET method is used to retrieve data from the server.
+ * @typeParam POST - The POST method is used to send data to the server.
+ * @typeParam PUT - The PUT method is used to update data on the server.
+ * @typeParam DELETE - The DELETE method is used to remove data from the server.
+ */
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 const DEFAULT_OPTIONS: ApiOptions = {
@@ -8,14 +15,12 @@ const DEFAULT_OPTIONS: ApiOptions = {
 
 /**
  * Options for configuring an API request.
- *
- * @property {Method} [method] - The HTTP method to use for the request (e.g.,
- * 'GET', 'POST', 'PUT', 'DELETE').
- * @property {Record<string, unknown>} [body] - The request body to send with
+ * @typeParam method - The HTTP Method to use for the request.
+ * @typeParam body - The request body to send with
  * the request (e.g., JSON data).
- * @property {Record<string, string>} headers - Headers to include in the
+ * @typeParam headers - Headers to include in the
  * request (e.g., 'Content-Type', 'Authorization').
- * @property {RequestCredentials} [credentials] - The credentials policy for
+ * @typeParam credentials - The credentials policy for
  * the request (e.g., 'include', 'same-origin', 'omit').
  */
 export interface ApiOptions {
@@ -27,20 +32,20 @@ export interface ApiOptions {
 
 /**
  * Makes an API request to the specified URL with the given options.
- *
- * @param {string} url - The endpoint to call, relative to `API_BASE_URL`.
- * @param {ApiOptions} [options=defaultOptions] - The options to use for the
+ * @param url - The endpoint to call, relative to `API_BASE_URL`.
+ * @param options - The options to use for the
  * request.
- * @returns {Promise<T>} A promise that resolves to the response data as a
+ * @returns A promise that resolves to the response data as a
  * generic type `T`.
- * @throws {Error} Throws an error if the network response is not OK or if the
+ * @throws Throws an error if the network response is not OK or if the
  * request fails. The error contains the response body as a JSON string.
  * @example
+ * ```ts
  * const options: ApiOptions = {
  *   method: 'POST',
  * };
- *
  * const response = await apiRequest('/test-endpoint', options);
+ * ```
  **/
 export const apiRequest = async <T>(
   url: string,
