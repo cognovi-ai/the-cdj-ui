@@ -79,6 +79,22 @@ const commonSettings = {
       textTransform: 'uppercase' as const,
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          width: '100%',
+          height: '100%',
+          borderRadius: '5px',
+          borderWidth: '0.77px',
+          borderStyle: 'solid',
+          transition: 'all 0.2s ease-in-out',
+          fontFamily: 'Roboto',
+          fontSize: '16px',
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
@@ -91,6 +107,35 @@ export const lightTheme = createTheme({
     text: {
       primary: '#000000',
       secondary: '#282828',
+    },
+  },
+  components: {
+    ...commonSettings.components,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          ...commonSettings.components.MuiButton.styleOverrides.root,
+          backgroundColor: '#FFFFFF',
+          borderColor: '#282828',
+          color: '#282828',
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderColor: '#282828',
+            borderWidth: '0.77px',
+            borderStyle: 'solid',
+          },
+          '&.MuiButton-contained:hover': {
+            backgroundColor: '#d3d3d3',
+            borderWidth: '0.77px',
+            borderStyle: 'solid',
+          },
+          '&.Mui-disabled': {
+            opacity: 0.5,
+            backgroundColor: '#FFFFFF',
+            borderColor: 'rgba(40, 40, 40, 0.3)',
+          },
+        },
+      },
     },
   },
 });
@@ -110,5 +155,34 @@ export const darkTheme = createTheme({
       secondary: '#D9D9D9',
     },
     divider: '#282828',
+  },
+  components: {
+    ...commonSettings.components,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          ...commonSettings.components.MuiButton.styleOverrides.root,
+          backgroundColor: '#282828',
+          borderColor: '#FFFFFF',
+          color: '#FFFFFF',
+          '&:hover': {
+            backgroundColor: 'rgba(40, 40, 40, 0.9)',
+            borderColor: '#FFFFFF',
+            borderWidth: '0.77px',
+            borderStyle: 'solid',
+          },
+          '&.MuiButton-contained:hover': {
+            backgroundColor: '#1a1a1a',
+            borderWidth: '0.77px',
+            borderStyle: 'solid',
+          },
+          '&.Mui-disabled': {
+            opacity: 0.5,
+            backgroundColor: '#282828',
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+          },
+        },
+      },
+    },
   },
 });
