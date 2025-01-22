@@ -2,9 +2,7 @@ import { JournalContext } from './JournalContext';
 import { useContext } from 'react';
 
 /**
- * Custom hook to access the Journal context.
- * Must be used within a `JournalProvider`.
- *
+ * Custom hook to access the Journal context within a `JournalProvider`.
  * @returns The `journalId` and `setJournalId` from the `JournalContext`.
  * @throws An error if used outside a `JournalProvider`.
  */
