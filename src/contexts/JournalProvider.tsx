@@ -4,10 +4,9 @@ import { JournalContext } from './JournalContext';
 
 /**
  * Props for the `JournalProvider` component.
+ * @typeParam children - The child components that will have access to the Journal context.
  */
-
 interface JournalProviderProps {
-  /** The child components that will have access to the Journal context. */
   children: React.ReactNode;
 }
 
@@ -17,7 +16,6 @@ interface JournalProviderProps {
  *
  * @param children - The child components to render.
  */
-
 export const JournalProvider: React.FC<JournalProviderProps> = ({
   children,
 }) => {
@@ -26,7 +24,6 @@ export const JournalProvider: React.FC<JournalProviderProps> = ({
   /**
    * The value provided by the `JournalContext` to its consumers.
    */
-
   const value = {
     journalId,
     setJournalId,

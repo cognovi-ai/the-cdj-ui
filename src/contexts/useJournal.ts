@@ -8,7 +8,6 @@ import { useContext } from 'react';
  * @returns The `journalId` and `setJournalId` from the `JournalContext`.
  * @throws An error if used outside a `JournalProvider`.
  */
-
 export const useJournal = () => {
   const context = useContext(JournalContext);
 
