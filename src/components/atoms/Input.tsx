@@ -22,16 +22,16 @@ const Input: React.FC<InputProps> = ({
   ariaLabel,
   ariaLabelledBy,
   tabIndex,
-  showPasswordToggle = false,
+  hideInput = false,
   ...props
 }: InputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
+  const handleClickShowInput = () => {
+    setShowInput(!showInput);
   };
 
-  const handleMouseDownPassword = (
+  const handleMouseDownShowInput = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
@@ -52,15 +52,15 @@ const Input: React.FC<InputProps> = ({
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledBy,
           endAdornment:
-            type === 'password' && showPasswordToggle ? (
+            hideInput ? (
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
+                  aria-label="toggle input visibility"
+                  onClick={handleClickShowInput}
+                  onMouseDown={handleMouseDownShowInput}
                   edge="end"
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}{' '}
+                  {showInput ? <Visibility /> : <VisibilityOff />}{' '}
                 </IconButton>
               </InputAdornment>
             ) : undefined,
@@ -70,7 +70,7 @@ const Input: React.FC<InputProps> = ({
         },
       }}
       sx={sx}
-      type={showPassword ? 'text' : type}
+      type={showInput ? 'text' : type}
       value={value}
       variant={variant}
       {...props}
