@@ -71,4 +71,28 @@ describe('Input component', () => {
     expect(input.tagName.toLowerCase()).toBe('textarea');
     expect(input.rows).toBe(3);
   });
+
+  it('should show an input toggle button when hideInput is true', () => {
+    render(<Input {...defaultProps} type="password" hideInput />);
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.type).toBe('password');
+
+    const inputToggle = screen.getByLabelText('toggle input visibility');
+    expect(inputToggle).toBeInTheDocument();
+
+    fireEvent.click(inputToggle);
+    expect(input.type).toBe('text');
+
+    fireEvent.click(inputToggle);
+    expect(input.type).toBe('password');
+  });
+
+  it('should not show an input toggle button when hideInput is false', () => {
+    render(<Input {...defaultProps} type="password" hideInput={false} />);
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.type).toBe('password');
+
+    const inputToggle = screen.queryByLabelText('toggle input visibility');
+    expect(inputToggle).not.toBeInTheDocument();
+  });
 });
