@@ -19,6 +19,7 @@ declare module '@components/atoms/Input' {
     tabIndex?: number;
     ariaLabel?: string;
     ariaLabelledBy?: string;
+    showPasswordToggle?: boolean;
   }
 
   const Input: FC<InputProps>;

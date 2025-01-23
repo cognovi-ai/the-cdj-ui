@@ -71,4 +71,43 @@ describe('Input component', () => {
     expect(input.tagName.toLowerCase()).toBe('textarea');
     expect(input.rows).toBe(3);
   });
+
+  it('should show a password toggle button when showPasswordToggle is true', () => {
+    render(<Input {...defaultProps} type="password" showPasswordToggle />);
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.type).toBe('password');
+
+    const passwordToggle = screen.getByLabelText('toggle password visibility');
+    expect(passwordToggle).toBeInTheDocument();
+
+    fireEvent.click(passwordToggle);
+    expect(input.type).toBe('text');
+
+    fireEvent.click(passwordToggle);
+    expect(input.type).toBe('password');
+  });
+
+  it('should not show a password toggle button when showPasswordToggle is false', () => {
+    render(
+      <Input {...defaultProps} type="password" showPasswordToggle={false} />
+    );
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.type).toBe('password');
+
+    const passwordToggle = screen.queryByLabelText(
+      'toggle password visibility'
+    );
+    expect(passwordToggle).not.toBeInTheDocument();
+  });
+
+  it('should not show a password toggle button for non-password types', () => {
+    render(<Input {...defaultProps} type="text" showPasswordToggle />);
+    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
+    expect(input.type).toBe('text');
+
+    const passwordToggle = screen.queryByLabelText(
+      'toggle password visibility'
+    );
+    expect(passwordToggle).not.toBeInTheDocument();
+  });
 });
