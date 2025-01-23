@@ -31,12 +31,6 @@ const Input: React.FC<InputProps> = ({
     setShowInput(!showInput);
   };
 
-  const handleMouseDownShowInput = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
   return (
     <MuiInput
       disabled={disabled}
@@ -51,19 +45,17 @@ const Input: React.FC<InputProps> = ({
         input: {
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledBy,
-          endAdornment:
-            hideInput ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle input visibility"
-                  onClick={handleClickShowInput}
-                  onMouseDown={handleMouseDownShowInput}
-                  edge="end"
-                >
-                  {showInput ? <Visibility /> : <VisibilityOff />}{' '}
-                </IconButton>
-              </InputAdornment>
-            ) : undefined,
+          endAdornment: hideInput ? (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle input visibility"
+                onClick={handleClickShowInput}
+                edge="end"
+              >
+                {showInput ? <Visibility /> : <VisibilityOff />}{' '}
+              </IconButton>
+            </InputAdornment>
+          ) : undefined,
         },
         htmlInput: {
           tabIndex: tabIndex,

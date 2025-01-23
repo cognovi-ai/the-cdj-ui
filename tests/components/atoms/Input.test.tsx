@@ -72,42 +72,27 @@ describe('Input component', () => {
     expect(input.rows).toBe(3);
   });
 
-  it('should show a password toggle button when showPasswordToggle is true', () => {
-    render(<Input {...defaultProps} type="password" showPasswordToggle />);
+  it('should show an input toggle button when hideInput is true', () => {
+    render(<Input {...defaultProps} type="password" hideInput />);
     const input = screen.getByLabelText('Test Input') as HTMLInputElement;
     expect(input.type).toBe('password');
 
-    const passwordToggle = screen.getByLabelText('toggle password visibility');
-    expect(passwordToggle).toBeInTheDocument();
+    const inputToggle = screen.getByLabelText('toggle input visibility');
+    expect(inputToggle).toBeInTheDocument();
 
-    fireEvent.click(passwordToggle);
+    fireEvent.click(inputToggle);
     expect(input.type).toBe('text');
 
-    fireEvent.click(passwordToggle);
+    fireEvent.click(inputToggle);
     expect(input.type).toBe('password');
   });
 
-  it('should not show a password toggle button when showPasswordToggle is false', () => {
-    render(
-      <Input {...defaultProps} type="password" showPasswordToggle={false} />
-    );
+  it('should not show an input toggle button when hideInput is false', () => {
+    render(<Input {...defaultProps} type="password" hideInput={false} />);
     const input = screen.getByLabelText('Test Input') as HTMLInputElement;
     expect(input.type).toBe('password');
 
-    const passwordToggle = screen.queryByLabelText(
-      'toggle password visibility'
-    );
-    expect(passwordToggle).not.toBeInTheDocument();
-  });
-
-  it('should not show a password toggle button for non-password types', () => {
-    render(<Input {...defaultProps} type="text" showPasswordToggle />);
-    const input = screen.getByLabelText('Test Input') as HTMLInputElement;
-    expect(input.type).toBe('text');
-
-    const passwordToggle = screen.queryByLabelText(
-      'toggle password visibility'
-    );
-    expect(passwordToggle).not.toBeInTheDocument();
+    const inputToggle = screen.queryByLabelText('toggle input visibility');
+    expect(inputToggle).not.toBeInTheDocument();
   });
 });
