@@ -6,7 +6,6 @@ const ENTRY_BASE_URL = process.env.NEXT_PUBLIC_ENTRY_BASE_URL;
  * Custom hook for making API requests to the entry API
  * @returns Object containing request method for making API calls
  * @param journalId - Unique identifier for the journal
- * @example 
  * @example Fetching all entries
  * ```typescript
  * const { request } = useEntry('journal123');

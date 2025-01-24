@@ -195,13 +195,6 @@ describe('Entry API Endpoints', () => {
   });
 });
 
-/**
- * Integration tests are skipped to avoid external API calls during unit testing.
- * To run integration tests:
- * 1. Ensure the API server is running at http://localhost:3000
- * 2. Install the `cross-fetch` package: npm install cross-fetch
- * 3. Remove the .skip() from the describe block
- * 3. Run: npm run test entryApi
 /* -------------------------------------------------------------------------- */
 
 /*
@@ -220,6 +213,7 @@ global.fetch = fetch;
 
 const API_BASE_URL = 'http://localhost:3000';
 
+// eslint-disable-next-line jest/no-disabled-tests
 describe.skip('entryApi Integration Tests', () => {
   let journalId: string;
   let entryId: string;

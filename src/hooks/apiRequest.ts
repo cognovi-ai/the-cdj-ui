@@ -27,12 +27,12 @@ export interface RequestBundle {
 /**
  * Options for configuring an API request.
  * @typeParam method - The HTTP Method to use for the request.
- * @typeParam body - The request body to send with
- * the request (e.g., JSON data).
- * @typeParam headers - Headers to include in the
- * request (e.g., 'Content-Type', 'Authorization').
- * @typeParam credentials - The credentials policy for
- * the request (e.g., 'include', 'same-origin', 'omit').
+ * @typeParam body - The request body to send with the request (e.g., JSON 
+ * data).
+ * @typeParam headers - Headers to include in the request (e.g., 
+ * 'Content-Type', 'Authorization').
+ * @typeParam credentials - The credentials policy for the request (e.g., 
+ * 'include', 'same-origin', 'omit').
  */
 export interface ApiOptions {
   method: Method;
@@ -44,12 +44,10 @@ export interface ApiOptions {
 /**
  * Makes an API request to the specified URL with the given options.
  * @param url - The endpoint to call, relative to `API_BASE_URL`.
- * @param options - The options to use for the
- * request.
- * @returns A promise that resolves to the response data as a
- * generic type `T`.
- * @throws Throws an error if the network response is not OK or if the
- * request fails. The error contains the response body as a JSON string.
+ * @param options - The options to use for the request.
+ * @returns A promise that resolves to the response data as a generic type `T`.
+ * @throws Throws an error if the network response is not OK or if the request 
+ * fails. The error contains the response body as a JSON string.
  * @example
  * ```ts
  * const options: ApiOptions = {

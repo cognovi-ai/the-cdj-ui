@@ -155,6 +155,14 @@ export interface EntryConversationResponse extends Record<string, unknown> {
   flash?: FlashMessage;
 }
 
+/**
+ * API interface defining all available endpoint methods for the entry API.
+ * @typeParam entry - The expected `entry` endpoint request bundle.
+ * @typeParam entryAnalysis - The expected `entry-analysis` endpoint request 
+ * bundle.
+ * @typeParam entryConversation - The expected `entry-conversation` endpoint 
+ * request bundle.
+ */
 interface Api {
   /**
    * The expected `entry` endpoint request bundle.
