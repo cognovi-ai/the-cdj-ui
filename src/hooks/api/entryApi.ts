@@ -180,7 +180,7 @@ interface Api {
    * @param body - Entry analysis body
    * @returns 
    */
-  entryAnalysis: (
+  'entry-analysis': (
     method: Method,
     entryId: string,
     body?: EntryAnalysisBody
@@ -194,7 +194,7 @@ interface Api {
    * @param body - Entry conversation body
    * @returns 
    */
-  entryConversation: (
+  'entry-conversation': (
     method: Method,
     entryId: string,
     chatId?: string,
@@ -282,6 +282,6 @@ const entryConversation = (
  */
 export const endpoints: Api = {
   entry,
-  entryAnalysis,
-  entryConversation,
+  'entry-analysis': entryAnalysis,
+  'entry-conversation': entryConversation,
 };
