@@ -156,9 +156,8 @@ export interface EntryConversationResponse extends Record<string, unknown> {
 }
 
 interface Api {
-
   /**
-   * 
+   * The expected `entry` endpoint request bundle.
    * @param method - HTTP method to be used
    * @param entryId - Unique identifier for the entry
    * @param body - Entry body
@@ -167,7 +166,7 @@ interface Api {
   entry: (method: Method, entryId?: string, body?: EntryBody) => RequestBundle;
 
   /**
-   * 
+   * The expected `entry-analysis` endpoint request bundle. 
    * @param method - HTTP method to be used
    * @param entryId - Unique identifier for the entry
    * @param body - Entry analysis body
@@ -180,7 +179,7 @@ interface Api {
   ) => RequestBundle;
 
   /**
-   * 
+   * The expected `entry-conversation` endpoint request bundle.
    * @param method - HTTP method to be used
    * @param entryId - Unique identifier for the entry
    * @param chatId - Unique identifier for the chat
@@ -196,7 +195,7 @@ interface Api {
 }
 
 /**
- * 
+ * Return the request bundle for the `entry` endpoint.
  * @param method - HTTP method to be used
  * @param entryId - Unique identifier for the entry
  * @param body - Entry body
@@ -220,7 +219,7 @@ const entry = (
 };
 
 /**
- * 
+ * Return the request bundle for the `entry-analysis` endpoint.
  * @param method - HTTP method to be used
  * @param entryId - Unique identifier for the entry
  * @param body - Entry analysis body
@@ -244,7 +243,7 @@ const entryAnalysis = (
 };
 
 /**
- * 
+ * Return the request bundle for the `entry-conversation` endpoint.
  * @param method - HTTP method to be used
  * @param entryId - Unique identifier for the entry
  * @param chatId - Unique identifier for the chat

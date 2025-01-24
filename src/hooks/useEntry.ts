@@ -7,29 +7,22 @@ const ENTRY_BASE_URL = process.env.NEXT_PUBLIC_ENTRY_BASE_URL;
  * @returns Object containing request method for making API calls
  * @param journalId - Unique identifier for the journal
  * @example 
+ * @example Fetching all entries
  * ```typescript
-
  * const { request } = useEntry('journal123');
  * 
- * // Example: Fetching all entries
  * const fetchEntries = async () => {
  *   const requestBundle = endpoints.entry('GET');
- *   const response = await request<GetAllEntriesResponse>(requestBundle);
- *   console.log('Entries:', response.entries);
+ *   return await request<GetAllEntriesResponse>(requestBundle);
  * };
+ * ```
+ * @example Creating a new entry
+ * ```typescript
+ * const { request } = useEntry('journal123');
  * 
- * // Example: Creating a new entry
- * const createEntry = async () => {
- *   const entryData = {
- *     title: 'My First Entry',
- *     content: 'This is my first entry.',
- *     mood: 'Happy',
- *     tags: ['journal', 'entry'],
- *     privacy_settings: { public: false, shared_with: [] },
- *   };
+ * const createEntry = async ( entryData: EntryBody ) => {
  *   const requestBundle = endpoints.entry('POST', undefined, entryData);
- *   const response = await request<EntryResponse>(requestBundle);
- *   console.log('New Entry Created:', response);
+ *   return await request<EntryResponse>(requestBundle);
  * };
  * ```
  */
