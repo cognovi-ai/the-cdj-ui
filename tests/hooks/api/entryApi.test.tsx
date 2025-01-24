@@ -202,9 +202,20 @@ describe('Entry API Endpoints', () => {
  * 2. Install the `cross-fetch` package: npm install cross-fetch
  * 3. Remove the .skip() from the describe block
  * 3. Run: npm run test entryApi
+/* -------------------------------------------------------------------------- */
+
+/*
+ * TODO: Remove .skip from the describe block to run tests once the CI/CD 
+ *   pipeline is set up for integration tests.
+ *
+ * To run integration tests locally:
+ *   1. Ensure the the-cdj backend is running at http://localhost:3000
+ *   2. Install the `cross-fetch` package: npm install cross-fetch
+ *   3. Remove the .skip from the describe block
+ *   4. Run: `npm run test entryApi`
  */
 
-// Polyfill fetch globally for Node.js
+/* -------------------------------------------------------------------------- */
 global.fetch = fetch;
 
 const API_BASE_URL = 'http://localhost:3000';
