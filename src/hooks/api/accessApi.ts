@@ -1,5 +1,4 @@
-import { Method } from '../apiRequest';
-import { RequestBundle } from '../useAccess';
+import { Method, RequestBundle } from '../apiRequest';
 
 /**
  * API interface defining all available endpoint methods
@@ -135,7 +134,6 @@ interface AccountBody extends Record<string, unknown> {
 
 /**
  * Represents the body of a user registration request.
- *
  * @typeParam fname - First name of the user.
  * @typeParam lname - Last name of the user.
  * @typeParam email - Email address of the user.
