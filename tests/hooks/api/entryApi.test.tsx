@@ -94,7 +94,7 @@ describe('Entry API Endpoints', () => {
     };
 
     test('generates correct RequestBundle for PUT', () => {
-      const result = endpoints.entryAnalysis(
+      const result = endpoints['entry-analysis'](
         'PUT',
         mockEntryId,
         mockAnalysisBody
@@ -112,7 +112,7 @@ describe('Entry API Endpoints', () => {
     });
 
     test('generates correct RequestBundle for GET', () => {
-      const result = endpoints.entryAnalysis('GET', mockEntryId);
+      const result = endpoints['entry-analysis']('GET', mockEntryId);
 
       expect(result).toEqual({
         endpoint: `/${mockEntryId}/analysis`,
@@ -138,7 +138,7 @@ describe('Entry API Endpoints', () => {
     };
 
     test('generates correct RequestBundle for POST without chatId', () => {
-      const result = endpoints.entryConversation(
+      const result = endpoints['entry-conversation'](
         'POST',
         mockEntryId,
         undefined,
@@ -157,7 +157,7 @@ describe('Entry API Endpoints', () => {
     });
 
     test('generates correct RequestBundle for GET with chatId', () => {
-      const result = endpoints.entryConversation(
+      const result = endpoints['entry-conversation'](
         'GET',
         mockEntryId,
         mockChatId
@@ -175,7 +175,7 @@ describe('Entry API Endpoints', () => {
     });
 
     test('generates correct RequestBundle for PUT with chatId', () => {
-      const result = endpoints.entryConversation(
+      const result = endpoints['entry-conversation'](
         'PUT',
         mockEntryId,
         mockChatId,
@@ -369,7 +369,7 @@ describe.skip('entryApi Integration Tests', () => {
       analysis_content: 'Updated analysis for integration testing.',
     };
 
-    const request = endpoints.entryAnalysis('PUT', entryId, body);
+    const request = endpoints['entry-analysis']('PUT', entryId, body);
     const response = await makeRequest(
       `${API_BASE_URL}/journals/${journalId}/entries/${entryId}/analysis`,
       {
@@ -412,7 +412,7 @@ describe.skip('entryApi Integration Tests', () => {
       ],
     };
 
-    const request = endpoints.entryConversation(
+    const request = endpoints['entry-conversation'](
       'POST',
       entryId,
       undefined,
