@@ -61,9 +61,10 @@ interface Api {
   /**
    * Handles user logout
    * @returns A bundle containing endpoint and request options
+   * @param connectSid - The session ID cookie.
    */
-  logout: () => RequestBundle;
-
+  logout: ( connectSid?: string) => RequestBundle;
+  
   /**
    * Handles user registration
    * @param body - Registration information
@@ -175,6 +176,63 @@ export interface JournalBody extends Record<string, unknown> {
   description?: string;
 }
 
+export interface FlashMessage {
+  success?: string[];
+  info?: string[];
+  error?: string[];
+}
+
+/**
+ * Represents the response from a login request.
+ * @typeParam flash - Flash message to be displayed.
+ * @typeParam journalId - Unique identifier for the user's journal.
+ * @typeParam journalTitle - Title of the user's journal.
+ */
+export interface LoginResponse {
+  flash?: FlashMessage;
+  journalId?: string;
+  journalTitle?: string;
+  token?: string;
+}
+
+/**
+ * Represents the response from a registration request.
+ * @typeParam flash - Flash message to be displayed.
+ * @typeParam journalId - Unique identifier for the user's journal.
+ * @typeParam journalTitle - Title of the user's journal.
+ */
+export interface RegisterResponse {
+  flash?: FlashMessage;
+  journalId?: string;
+  journalTitle?: string;
+}
+
+/**
+ * Represents the response from a logout request.
+ * @typeParam message - The message returned from the server.
+ * @typeParam flash - Flash message to be displayed.
+ */
+export interface LogoutResponse {
+  message: string;
+  flash?: FlashMessage;
+}
+
+/**
+ * Represents the response from a password reset request.
+ * @typeParam flash - Flash message to be displayed.
+ */
+export interface ResetPasswordResponse {
+  flash?: FlashMessage;
+}
+
+/**
+ * Represents the response from a password recovery request.
+ * @typeParam flash - Flash message to be displayed.
+ */
+export interface ForgotPasswordResponse {
+  flash?: FlashMessage;
+}
+
 /**
  * Creates a request bundle for user login
  * @param body - Login credentials and preferences
@@ -186,6 +244,7 @@ const login = (body: LoginBody): RequestBundle => {
     options: {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body,
     },
   };
@@ -197,11 +256,16 @@ const login = (body: LoginBody): RequestBundle => {
  * @returns A bundle containing endpoint and request options
  */
 const tokenLogin = (body: TokenLoginBody): RequestBundle => {
+  const { token } = body; // Extract the token from the body
+
   return {
     endpoint: '/token-login',
     options: {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body,
     },
   };
@@ -309,13 +373,16 @@ const resetPassword = (body: ResetPasswordBody): RequestBundle => {
  * Creates a request bundle for user logout
  * @returns A bundle containing endpoint and request options
  */
-const logout = (): RequestBundle => {
+const logout = ( connectSid?: string): RequestBundle => {
   return {
     endpoint: '/logout',
     options: {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(connectSid && { Cookie: `connect.sid=${connectSid}` }),
+      },
+      credentials: 'include'
     },
   };
 };
