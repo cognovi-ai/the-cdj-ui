@@ -33,6 +33,7 @@ describe('API Endpoints', () => {
       options: {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body,
       },
     });
@@ -46,7 +47,7 @@ describe('API Endpoints', () => {
       endpoint: '/token-login',
       options: {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' , Authorization: `Bearer ${body.token}` },
         body,
       },
     });
@@ -128,14 +129,31 @@ describe('API Endpoints', () => {
     });
   });
 
-  test('logout generates correct RequestBundle', () => {
+  test('logout generates correct RequestBundle without connectSid', () => {
     const result = endpoints.logout();
-
+  
     expect(result).toEqual({
       endpoint: '/logout',
       options: {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      },
+    });
+  });
+  
+  test('logout generates correct RequestBundle with connectSid', () => {
+    const connectSid = 'sample_sid';
+    const result = endpoints.logout(connectSid);
+  
+    expect(result).toEqual({
+      endpoint: '/logout',
+      options: {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Cookie: `connect.sid=${connectSid}`,
+        },
         credentials: 'include',
       },
     });
