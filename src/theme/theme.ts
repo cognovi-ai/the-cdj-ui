@@ -94,6 +94,14 @@ const commonSettings = {
         },
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          fontSize: '16px',
+          fontFamily: 'Roboto',
+        },
+      },
+    },
   },
 };
 
