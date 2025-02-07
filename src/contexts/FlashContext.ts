@@ -5,6 +5,7 @@ import { createContext } from 'react';
  * @typeParam success - A successful flash message.
  * @typeParam error - An error flash message.
  * @typeParam info - An informational flash message.
+ * @typeParam warning - A warning flash message.
  */
 export type FlashMessageType = 'success' | 'error' | 'info' | 'warning';
 
@@ -34,7 +35,7 @@ export interface FlashContextType {
 
 /**
  * The React Context for the flash feature providing access to the 
- * `flash`, `setFlash` and `clearFlash` functions.
+ * related functions.
  */
 export const FlashContext = createContext<FlashContextType | undefined>(
   undefined
