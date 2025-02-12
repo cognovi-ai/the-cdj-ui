@@ -1,10 +1,9 @@
 import '@testing-library/jest-dom';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { FlashComponent } from '../../../src/components/utils/FlashComponent';
 import React from 'react';
 import { useFlash } from '../../../src/contexts/useFlash';
 
-// Mock the useFlash context
 jest.mock('../../../src/contexts/useFlash');
 
 describe('FlashComponent', () => {
@@ -18,6 +17,7 @@ describe('FlashComponent', () => {
       clearFlash: mockClearFlash,
     }));
     (useFlash as jest.Mock).mockImplementation(mockUseFlash);
+    jest.useFakeTimers();
   });
 
   it('should not render anything if there is no flash message', () => {
@@ -33,7 +33,7 @@ describe('FlashComponent', () => {
 
     render(<FlashComponent />);
     expect(screen.getByRole('alert')).toHaveTextContent('Success!');
-    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-root'); // MUI class check
+    expect(screen.getByRole('alert')).toHaveClass('MuiAlert-root');
   });
 
   it('should close the alert when close button is clicked', () => {
@@ -45,52 +45,60 @@ describe('FlashComponent', () => {
     render(<FlashComponent />);
     const closeButton = screen.getByRole('button', { name: /close/i });
 
-    fireEvent.click(closeButton);
+    act(() => {
+      fireEvent.click(closeButton);
+    });
+
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(mockClearFlash).toHaveBeenCalledTimes(1);
   });
 
-  it('should auto-dismiss the flash message after 5 seconds', () => {
-    jest.useFakeTimers();
-
+  it('should auto-dismiss short messages after 5 seconds', async () => {
     (useFlash as jest.Mock).mockReturnValue({
-      flash: { message: 'Auto-dismiss test', type: 'info' },
+      flash: { message: 'Short msg', type: 'info' },
       clearFlash: mockClearFlash,
     });
 
     render(<FlashComponent />);
-
     expect(screen.getByRole('alert')).toBeInTheDocument();
 
     act(() => {
       jest.advanceTimersByTime(5000);
     });
 
-    expect(mockClearFlash).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(mockClearFlash).toHaveBeenCalledTimes(1));
   });
 
-  it('should keep the alert visible before 5 seconds and disappear afterward', () => {
-    jest.useFakeTimers();
-
+  it('should auto-dismiss long messages after dynamically calculated time', async () => {
+    const longMessage =
+      'This is a really long message that should stay visible longer because the user needs more time to read it.';
+  
+    const expectedTimeout = Math.min(5000 + longMessage.length * 50, 15000);
+  
     (useFlash as jest.Mock).mockReturnValue({
-      flash: { message: 'Delayed test', type: 'warning' },
+      flash: { message: longMessage, type: 'warning' },
       clearFlash: mockClearFlash,
     });
-
+  
     render(<FlashComponent />);
-
+  
     expect(screen.getByRole('alert')).toBeInTheDocument();
-
+  
     act(() => {
-      jest.advanceTimersByTime(3000);
+      jest.advanceTimersByTime(expectedTimeout - 1000);
     });
-
-    expect(screen.getByRole('alert')).toBeInTheDocument(); // Still visible
-
+  
+    expect(screen.queryByRole('alert')).toBeInTheDocument();
+  
     act(() => {
-      jest.advanceTimersByTime(2000);
+      jest.advanceTimersByTime(1000);
     });
-
+  
+    await waitFor(() => expect(screen.queryByRole('alert')).not.toBeInTheDocument());
+  
     expect(mockClearFlash).toHaveBeenCalledTimes(1);
   });
 
